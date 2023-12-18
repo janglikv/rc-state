@@ -1,8 +1,12 @@
 {
   "name": "rc-state",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "different react context",
   "main": "core.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janglikv/rc-state.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
