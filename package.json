@@ -1,14 +1,15 @@
 {
   "name": "rc-state",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "different react context",
-  "main": "core.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/janglikv/rc-state.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir ./lib --copy-files --presets @babel/react",
+    "start": "parcel test/index.html --open"
   },
   "author": "janglikv",
   "license": "ISC",
@@ -18,5 +19,14 @@
     "state",
     "multiple root",
     "component state"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.6",
+    "@babel/preset-react": "^7.23.3",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }

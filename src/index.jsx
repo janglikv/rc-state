@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useContext,
   useEffect,
@@ -71,22 +71,22 @@ export function createStore({
   };
 
   const useSelector = (selector) => {
-    const ctx = useContext(StoreContext);
+    const context = useContext(StoreContext);
     const [, setKey] = useState(false);
-    const uuid = useMemo(() => ctx.uuid++, []);
+    const uuid = useMemo(() => context.uuid++, []);
     const callbackRef = useRef();
     callbackRef.current = useMemo(() => {
-      return [selector, selector(ctx.state), () => setKey((bool) => !bool)];
+      return [selector, selector(context.state), () => setKey((bool) => !bool)];
     }, [selector, uuid]);
-    ctx.callbacks[uuid] = callbackRef.current;
+    context.callbacks[uuid] = callbackRef.current;
 
     useEffect(() => {
-      ctx.callbacks[uuid] = callbackRef.current;
+      context.callbacks[uuid] = callbackRef.current;
       return () => {
-        delete ctx.callbacks[uuid];
+        delete context.callbacks[uuid];
       };
     }, []);
-    return selector(ctx.state);
+    return selector(context.state);
   };
 
   const state = { ...selector };
