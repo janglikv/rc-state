@@ -8,7 +8,7 @@
     "url": "git+https://github.com/janglikv/rc-state.git"
   },
   "scripts": {
-    "build": "babel src --out-dir ./lib --copy-files --presets @babel/react",
+    "build": "babel src --out-dir ./lib --copy-files --extensions \".js,.jsx,.ts,.tsx\" --presets @babel/preset-env,@babel/preset-react,@babel/preset-typescript",
     "start": "parcel test/index.html --open"
   },
   "author": "janglikv",
@@ -23,7 +23,9 @@
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
     "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "parcel": "^2.10.3",
     "process": "^0.11.10",
     "react": "^18.2.0",

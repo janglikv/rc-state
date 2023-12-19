@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "../src";
+import { createStore as createSrcStore } from "../src";
+import { createStore } from "../lib";
 
-const store = createStore({
+/** @type {import("../src").StoreOptions} */
+const data = {
   state: {
     count: 0,
   },
@@ -16,25 +18,37 @@ const store = createStore({
       };
     },
   },
-});
+};
 
-function Test() {
-  return (
-    <store.Provider>
-      <Test2 />
-    </store.Provider>
-  );
-}
+const srcStore = createSrcStore(data);
+const libStore = createStore(data);
 
-function Test2() {
+
+function App({ store }) {
   const count = store.state.useCount();
   const actions = store.useActions();
   return (
-    <div>
-      <span>{count}</span>
+    <div style={{ zoom: 2 }}>
+      <input value={count} style={{ marginRight: 6 }} />
       <button onClick={actions.increment}>+</button>
     </div>
   );
 }
 
-ReactDOM.render(<Test />, document.getElementById("app"));
+function AppRoot() {
+  return (
+    <div style={{ fontSize: 16, lineHeight: 2, padding: 24 }}>
+      <div>src Store</div>
+      <srcStore.Provider>
+        <App store={srcStore} />
+      </srcStore.Provider>
+      <br />
+      <div>lib Store</div>
+      <libStore.Provider>
+        <App store={libStore} />
+      </libStore.Provider>
+    </div>
+  );
+}
+
+ReactDOM.render(<AppRoot />, document.getElementById("app"));

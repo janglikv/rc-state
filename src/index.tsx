@@ -7,27 +7,17 @@ import React, {
   useState,
 } from "react";
 
-/**
- * @template State
- * @template Actions
- * @template Selectors
- * @param {object} param0
- * @param {State} param0.state
- * @param {Selectors} param0.selector
- * @param {Actions} param0.actions
- * @returns {{
- *   state: Selectors,
- *   Provider: React.ComponentType<{children: React.ReactNode}>,
- *   useSelector: (selector: (state:State) => State) => any,
- *   useSetState: (() => (updater: (state: State) => State) => void)
- *   useActions: () => Actions
- * }}
- */
-export function createStore({
-  state: initState = {},
-  selector = {},
-  actions = {},
-}) {
+interface StoreOptions<State, Actions, Selectors> {
+  state: State;
+  selector: Selectors;
+  actions: Actions;
+}
+
+export function createStore<State, Actions, Selectors>({
+  state: initState = {} as State,
+  selector = {} as Selectors,
+  actions = {} as Actions,
+}: StoreOptions<State, Actions, Selectors>) {
   const StoreContext = createContext();
 
   function StateKeeper({ initState }) {
@@ -37,7 +27,7 @@ export function createStore({
 
     useMemo(() => {
       context.setState = setState;
-      const keys = Object.keys(actions);
+      const keys = Object.keys(actions as any);
       keys.forEach((key) => {
         context.actions[key] = (...args) => {
           context.setState((state) => actions[key](state, ...args));
@@ -89,7 +79,7 @@ export function createStore({
     return selector(context.state);
   };
 
-  const state = { ...selector };
+  const state = { ...selector } as any;
   Object.keys(state).map((key) => {
     state[key] = () => {
       return useSelector(selector[key]);
