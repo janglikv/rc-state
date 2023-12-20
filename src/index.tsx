@@ -7,20 +7,26 @@ import React, {
   useState,
 } from "react";
 
-interface StoreOptions<State, Actions, Selectors> {
-  state: State;
-  selector: Selectors;
-  actions: Actions;
-}
+export { createStore2 } from './createStore2'
 
-export function createStore<State, Actions, Selectors>({
-  state: initState = {} as State,
-  selector = {} as Selectors,
-  actions = {} as Actions,
-}: StoreOptions<State, Actions, Selectors>) {
-  const StoreContext = createContext();
 
-  function StateKeeper({ initState }) {
+
+export function createStore<
+  State,
+  Selector extends Record<string, (state: State) => any>,
+  Actions extends Record<string, (state: State, ...payload: any) => State>
+>({
+  state: initState,
+  selector,
+  actions,
+}: {
+  state: State,
+  selector: Selector,
+  actions: Actions
+}) {
+  const StoreContext = createContext<any>({});
+
+  function StateKeeper({ initState }: any) {
     const context = useContext(StoreContext);
     const [state, setState] = useState(initState);
     context.state = state;
@@ -29,8 +35,10 @@ export function createStore<State, Actions, Selectors>({
       context.setState = setState;
       const keys = Object.keys(actions as any);
       keys.forEach((key) => {
-        context.actions[key] = (...args) => {
-          context.setState((state) => actions[key](state, ...args));
+        context.actions[key] = (...args: any) => {
+          context.setState((state: any) =>
+            (actions as any)[key](state, ...args)
+          );
         };
       });
     }, []);
@@ -47,7 +55,7 @@ export function createStore<State, Actions, Selectors>({
     return null;
   }
 
-  const Provider = ({ children, initState: providerInitState }) => {
+  const Provider = ({ children, initState: providerInitState }: any) => {
     const value = useMemo(
       () => ({ callbacks: {}, uuid: 0, state: {}, actions: {} }),
       []
@@ -60,11 +68,11 @@ export function createStore<State, Actions, Selectors>({
     );
   };
 
-  const useSelector = (selector) => {
+  const useSelector = <S extends (state: State) => any>(selector: S) => {
     const context = useContext(StoreContext);
     const [, setKey] = useState(false);
     const uuid = useMemo(() => context.uuid++, []);
-    const callbackRef = useRef();
+    const callbackRef = useRef<any>();
     callbackRef.current = useMemo(() => {
       return [selector, selector(context.state), () => setKey((bool) => !bool)];
     }, [selector, uuid]);
@@ -79,10 +87,10 @@ export function createStore<State, Actions, Selectors>({
     return selector(context.state);
   };
 
-  const state = { ...selector } as any;
-  Object.keys(state).map((key) => {
-    state[key] = () => {
-      return useSelector(selector[key]);
+  const state = { ...selector } as Selector;
+  Object.keys(state as any).map((key) => {
+    (state as any)[key] = () => {
+      return useSelector((selector as any)[key]);
     };
   });
 

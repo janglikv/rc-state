@@ -1,34 +1,51 @@
 {
-  "name": "rc-state",
-  "version": "1.0.9",
-  "description": "different react context",
-  "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/janglikv/rc-state.git"
-  },
-  "scripts": {
-    "build": "babel src --out-dir ./lib --copy-files --extensions \".js,.jsx,.ts,.tsx\" --presets @babel/preset-env,@babel/preset-react,@babel/preset-typescript",
-    "start": "parcel test/index.html --open"
-  },
-  "author": "janglikv",
-  "license": "ISC",
-  "keywords": [
-    "react",
-    "context",
-    "state",
-    "multiple root",
-    "component state"
-  ],
-  "devDependencies": {
-    "@babel/cli": "^7.23.4",
-    "@babel/core": "^7.23.6",
-    "@babel/preset-env": "^7.23.6",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
-    "parcel": "^2.10.3",
-    "process": "^0.11.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+    "version": "1.0.10",
+    "description": "different react context",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "start": "tsdx watch",
+        "build": "tsdx build",
+        "test": "tsdx test --passWithNoTests",
+        "lint": "tsdx lint",
+        "prepare": "tsdx build",
+        "size": "size-limit",
+        "analyze": "size-limit --why"
+    },
+    "peerDependencies": {
+        "react": ">=16"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "tsdx lint"
+        }
+    },
+    "prettier": {
+        "printWidth": 80,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "tabWidth": 4
+    },
+    "name": "rc-state",
+    "author": "jianglikui",
+    "module": "dist/rc-state-1.esm.js",
+    "size-limit": [
+        {
+            "path": "dist/rc-state-1.cjs.production.min.js",
+            "limit": "10 KB"
+        },
+        {
+            "path": "dist/rc-state-1.esm.js",
+            "limit": "10 KB"
+        }
+    ]
 }
