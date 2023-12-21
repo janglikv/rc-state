@@ -92,9 +92,8 @@ export function createStore<
   }
 
   Object.keys(selector).map(key => {
-    (selector as any)[key] = () => {
-      return useSelector(selector[key]);
-    };
+    const selectorFunc = selector[key];
+    (selector as any)[key] = () => useSelector(selectorFunc);
   });
 
   return {
