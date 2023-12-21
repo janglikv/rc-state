@@ -1,9 +1,17 @@
 {
-    "version": "1.0.14",
+    "version": "1.0.15",
     "description": "different react context",
     "license": "MIT",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
+    "keywords": [
+        "react",
+        "react-context",
+        "react-hooks",
+        "react-state",
+        "react-state-management",
+        "react-component-state"
+    ],
     "files": [
         "dist",
         "src"

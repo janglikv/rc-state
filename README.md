@@ -1,3 +1,9 @@
+### Component Feature Highlights
+
+- **Optimized React Context**: Enhanced performance, reduces unnecessary renderings.
+- **Selector Mechanism**: Precise state subscription, avoids redundant updates.
+- **TypeScript Support**: Ensures type safety and robustness of code.
+
 ```javascript
 const demoStore = createStore({
     state: { count: 10 },
