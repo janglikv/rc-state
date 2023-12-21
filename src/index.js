@@ -1,30 +1,3 @@
-```javascript
-const demoStore = createStore({
-    state: { count: 10 },
-    selector: {
-        useCount: (state) => state.count,
-        useDoubledCount: (state) => state.count * 2,
-    },
-    actions: {
-        increment: (state) => ({ ...state, count: state.count + 1 }),
-        decrement: (state) => ({ ...state, count: state.count - 1 }),
-    },
-});
-```
-
-```javascript
-export default function DemoApp() {
-    return (
-        <demoStore.Provider>
-            <Counter />
-            <br />
-            <CounterOptions />
-        </demoStore.Provider>
-    );
-}
-```
-
-```javascript
 const demoStore = createStore({
     state: { count: 10 },
     selector: {
@@ -52,4 +25,3 @@ function CounterOptions() {
         </>
     );
 }
-```
