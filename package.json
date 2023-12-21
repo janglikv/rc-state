@@ -1,5 +1,5 @@
 {
-    "version": "1.0.10",
+    "version": "1.0.12",
     "description": "different react context",
     "license": "MIT",
     "main": "dist/index.js",
@@ -36,7 +36,11 @@
         "tabWidth": 4
     },
     "name": "rc-state",
-    "author": "jianglikui",
+    "author": "janglikv",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/janglikv/rc-state.git"
+    },
     "module": "dist/rc-state-1.esm.js",
     "size-limit": [
         {
