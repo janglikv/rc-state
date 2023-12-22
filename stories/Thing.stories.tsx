@@ -16,10 +16,11 @@ const store = createStore({
 });
 
 
-const DemoApp = store.with(function DemoApp() {
+const DemoApp = store.withProvider(function ({ name = '' }) {
     const count = store.selector.useCount();
     const actions = store.useActions()
     return <div style={{ zoom: 1.5 }}>
+        {name}
         {count}
         <br />
         <button onClick={actions.increment}>+</button>

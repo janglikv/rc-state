@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { ComponentType, createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 export function createStore<
     State,
@@ -113,15 +113,15 @@ export function createStore<
                 getState: () => context.state as State,
             }
         },
-        // with 参数为组件，返回的也是参数的组件
-        with: <P extends {}>(Component: React.ComponentType<P>) => {
-            return (props: P) => {
+        withProvider: <T,>(Component: T): T => {
+            return ((props: any) => {
+                const EComponent = Component as unknown as ComponentType<any>;
                 return (
                     <Provider>
-                        <Component {...props} />
+                        <EComponent {...props} />
                     </Provider>
                 );
-            };
-        }
+            }) as unknown as T;
+        },
     }
 }
