@@ -1,9 +1,13 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "description": "different react context",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janglikv/rc-state.git"
+  },
   "keywords": [
     "react",
     "react-context",
