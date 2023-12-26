@@ -41,9 +41,10 @@ const DemoApp = demoStore.withProvider(function () {
 
 -   **createStore(options = {state, select?, actions?})**: create a store.
 -   `options.state`: initial state, eg: `{ name: 'rc-state' }`.
--   `options.select`: selector function, eg: `(state) => state.name`.
+-   `options.select`: selector function, eg: `{useName: (state) => state.name,...}`, must start with `use`.
 -   `options.actions`: updater function, eg: `(state) => ({ ...state, name: 'rc-state' })`.
 -   `store.Provider` or `store.withProvider`: wrap the component with a provider.
 -   `store.useContext`: get the context object of the store, which contains `getState`, `setState`.
 -   `store.useSelector`: get the state of the store, and subscribe to changes in the state.
--   `store.useActions`: get the updater function of the store, form options.actions.
+-   `store.useActions`: get the updater function of the store, form `options.actions`.
+-   `store.selector.use...`: get the selector function of the store, form `options.select`.
