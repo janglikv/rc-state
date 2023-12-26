@@ -1,33 +1,22 @@
-import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import React from 'react';
 import { createStore } from '../src';
 
-const store = createStore({
-    state: {
-        count: 10
-    },
-    selector: {
-        useCount: state => state.count,
-    },
-    actions: {
-        increment: state => ({ ...state, count: state.count + 1 }),
-        decrement: state => ({ ...state, count: state.count - 1 }),
-    }
+const demoStore = createStore({ state: { say: 'hello', name: 'rc-state' } });
+
+const DemoApp = demoStore.withProvider(function () {
+    const name = demoStore.useSelector((state) => state.name);
+    const say = demoStore.useSelector((state) => state.say);
+    const { setState } = demoStore.useContext();
+    const changeName = (e) => setState((state) => ({ ...state, name: e.target.value }));
+    return (
+        <div>
+            {say} {name}!
+            <br />
+            <input value={name} onChange={changeName} />
+        </div>
+    );
 });
-
-
-const DemoApp = store.withProvider(function ({ name = '' }) {
-    const count = store.selector.useCount();
-    const actions = store.useActions()
-    return <div style={{ zoom: 1.5 }}>
-        {name}
-        {count}
-        <br />
-        <button onClick={actions.increment}>+</button>
-        &nbsp;
-        <button onClick={actions.decrement}>-</button>
-    </div>
-})
 
 const meta: Meta = {
     title: 'Welcome',
@@ -46,7 +35,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => <DemoApp {...args} />;
+const Template: Story = (args) => <DemoApp {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
