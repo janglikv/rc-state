@@ -62,9 +62,11 @@ export default meta;
 
 const Template: Story = (args) => (
     <>
+        demo1:
         <DemoApp {...args} />
         <hr />
-        <Demo2App />
+        demo2:
+        <Demo2App {...args} />
     </>
 );
 

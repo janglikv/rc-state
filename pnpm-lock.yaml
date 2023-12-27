@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.23.6
+  '@babel/plugin-proposal-optional-chaining': ^7.21.0
   '@babel/preset-env': ^7.23.6
   '@size-limit/preset-small-lib': ^11.0.1
   '@storybook/addon-essentials': ^7.6.6
@@ -29,6 +30,7 @@ dependencies:
 
 devDependencies:
   '@babel/core': 7.23.6
+  '@babel/plugin-proposal-optional-chaining': 7.21.0_@babel+core@7.23.6
   '@babel/preset-env': 7.23.6_@babel+core@7.23.6
   '@size-limit/preset-small-lib': 11.0.1_size-limit@11.0.1
   '@storybook/addon-essentials': 7.6.6_y25r3j74y2ixp3wwje7zxg74ra
@@ -401,6 +403,19 @@ packages:
       '@babel/core': 7.23.6
       '@babel/helper-create-class-features-plugin': 7.23.6_@babel+core@7.23.6
       '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-proposal-optional-chaining/7.21.0_@babel+core@7.23.6:
+    resolution: {integrity: sha512-p4zeefM72gpmEe2fkUr/OnOXpWEf8nAgk7ZYVqqfFiyIG7oFfVZcCrU64hWn5xp4tQ9LkV4bTIa5rD0KANpKNA==}
+    engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.6
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
+      '@babel/plugin-syntax-optional-chaining': 7.8.3_@babel+core@7.23.6
     dev: true
 
   /@babel/plugin-proposal-private-property-in-object/7.21.0-placeholder-for-preset-env.2_@babel+core@7.23.6:

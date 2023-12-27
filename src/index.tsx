@@ -138,7 +138,7 @@ export function createStore<
             });
             const actions = useActions();
             const context = useStoreContext();
-            return children?.({ values, actions, context });
+            return children?.({ values, actions, context }) ?? null;
         },
     };
 }
