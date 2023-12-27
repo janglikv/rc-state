@@ -7,6 +7,7 @@ yarn add rc-state
 ```
 
 ### npm
+
 ```bash
 npm install rc-state --save
 ```
@@ -37,6 +38,35 @@ const DemoApp = demoStore.withProvider(function () {
 });
 ```
 
+### store.Customer demo
+
+```javascript
+const demo2Store = createStore({
+    state: { say: 'hello', name: 'rc-state' },
+    actions: {
+        changeNameFromEvent: (state, event) => ({ ...state, name: event.target.value }),
+    },
+});
+
+export const Demo2App = demo2Store.withProvider(function () {
+    return (
+        <>
+            <demo2Store.Customer selectors={[(state) => state.say, (state) => state.name]}>
+                {({ values: [say, name], actions }) => {
+                    return (
+                        <>
+                            {say} {name}!
+                            <br />
+                            <input value={name} onChange={actions.changeNameFromEvent} />
+                        </>
+                    );
+                }}
+            </demo2Store.Customer>
+        </>
+    );
+});
+```
+
 ### api
 
 -   **createStore(options = {state, select?, actions?})**: create a store.
@@ -48,3 +78,4 @@ const DemoApp = demoStore.withProvider(function () {
 -   `store.useSelector`: get the state of the store, and subscribe to changes in the state.
 -   `store.useActions`: get the updater function of the store, form `options.actions`.
 -   `store.selector.use...`: get the selector function of the store, form `options.select`.
+-   `store.Customer`: wrap the component with a customer. see demo2.

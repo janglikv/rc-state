@@ -18,6 +18,31 @@ const DemoApp = demoStore.withProvider(function () {
     );
 });
 
+const demo2Store = createStore({
+    state: { say: 'hello', name: 'rc-state' },
+    actions: {
+        changeNameFromEvent: (state, event) => ({ ...state, name: event.target.value }),
+    },
+});
+
+export const Demo2App = demo2Store.withProvider(function () {
+    return (
+        <>
+            <demo2Store.Customer selectors={[(state) => state.say, (state) => state.name]}>
+                {({ values: [say, name], actions }) => {
+                    return (
+                        <>
+                            {say} {name}!
+                            <br />
+                            <input value={name} onChange={actions.changeNameFromEvent} />
+                        </>
+                    );
+                }}
+            </demo2Store.Customer>
+        </>
+    );
+});
+
 const meta: Meta = {
     title: 'Welcome',
     component: DemoApp,
@@ -35,7 +60,13 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = (args) => <DemoApp {...args} />;
+const Template: Story = (args) => (
+    <>
+        <DemoApp {...args} />
+        <hr />
+        <Demo2App />
+    </>
+);
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
