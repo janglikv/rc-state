@@ -78,4 +78,8 @@ export const Demo2App = demo2Store.withProvider(function () {
 -   `store.useSelector`: get the state of the store, and subscribe to changes in the state.
 -   `store.useActions`: get the updater function of the store, form `options.actions`.
 -   `store.selector.use...`: get the selector function of the store, form `options.select`.
--   `store.Customer`: wrap the component with a customer. see demo2.
+-   `store.Consumer`: wrap the component with a consumer. see `store.Customer demo`.
+
+## License
+
+MIT
