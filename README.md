@@ -51,7 +51,7 @@ const demo2Store = createStore({
 export const Demo2App = demo2Store.withProvider(function () {
     return (
         <>
-            <demo2Store.Customer selectors={[(state) => state.say, (state) => state.name]}>
+            <demo2Store.Consumer selectors={[(state) => state.say, (state) => state.name]}>
                 {({ values: [say, name], actions }) => {
                     return (
                         <>

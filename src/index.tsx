@@ -122,7 +122,7 @@ export function createStore<
                 );
             }) as unknown as T;
         },
-        Customer: ({
+        Consumer: ({
             selectors = [],
             children,
         }: {
