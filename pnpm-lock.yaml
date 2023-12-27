@@ -25,9 +25,6 @@ specifiers:
   tslib: ^2.6.2
   typescript: ^5.3.3
 
-dependencies:
-  prettier: 3.1.1
-
 devDependencies:
   '@babel/core': 7.23.6
   '@babel/plugin-proposal-optional-chaining': 7.21.0_@babel+core@7.23.6
@@ -43,6 +40,7 @@ devDependencies:
   '@types/react-dom': 18.2.18
   babel-loader: 9.1.3_@babel+core@7.23.6
   husky: 8.0.3
+  prettier: 3.1.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-is: 18.2.0
@@ -10952,7 +10950,7 @@ packages:
     resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: false
+    dev: true
 
   /pretty-error/4.0.0:
     resolution: {integrity: sha512-AoJ5YMAcXKYxKhuJGdcvse+Voc6v1RgnsR3nWcYU7q4t6z0Q6T86sv5Zq8VIRbOWWFpvdGE83LtdSMNd+6Y0xw==}
