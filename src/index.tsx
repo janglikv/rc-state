@@ -1,4 +1,13 @@
-import React, { ComponentType, createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    ComponentType,
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 
 export function createStore<
     State,
@@ -11,8 +20,26 @@ export function createStore<
 
     function StateKeeper({ initState }: any) {
         const context = useContext(StoreContext);
-        const [state, setState] = useState(initState);
-        context.state = state;
+        const state = useRef(initState);
+
+        const setState = useCallback((newState: any) => {
+            if (typeof newState === 'function') {
+                state.current = newState(state.current);
+            } else {
+                state.current = newState;
+            }
+            context.state = state.current;
+            const keys = Object.keys(context.callbacks);
+            keys.forEach((uuid) => {
+                const [selector, prevValue, updater] = context.callbacks[uuid];
+                const newValue = selector(state.current);
+                newValue !== prevValue && updater();
+            });
+        }, []);
+
+        useEffect(() => {
+            setState(initState);
+        }, []);
 
         // init actions
         useMemo(() => {
@@ -24,16 +51,6 @@ export function createStore<
                 };
             });
         }, []);
-
-        // toggle selectors updater when state changed
-        useMemo(() => {
-            const keys = Object.keys(context.callbacks);
-            keys.forEach((uuid) => {
-                const [selector, prevValue, updater] = context.callbacks[uuid];
-                const newValue = selector(state);
-                newValue !== prevValue && updater();
-            });
-        }, [state]);
 
         return null;
     }
@@ -108,7 +125,7 @@ export function createStore<
 
     return {
         Provider,
-        selector: useSelectors,
+        state: useSelectors,
         useSelector,
         useActions,
         useContext: useStoreContext,
