@@ -5,18 +5,33 @@ import { createStore } from '../src';
 const demoStore = createStore({ state: { say: 'hello', name: 'rc-state' } });
 
 const DemoApp = demoStore.withProvider(function () {
-    const name = demoStore.useSelector((state) => state.name);
-    const say = demoStore.useSelector((state) => state.say);
-    const { setState } = demoStore.useContext();
-    const changeName = (e) => setState((state) => ({ ...state, name: e.target.value }));
     return (
         <div>
-            {say} {name}!
+            <demoStore.Consumer selectors={[(state) => state.say]}>{({ values: [say] }) => say}</demoStore.Consumer>
+            <span> </span>
+            <demoStore.Consumer selectors={[(state) => state.name]}>{({ values: [name] }) => name}</demoStore.Consumer>!
             <br />
-            <input value={name} onChange={changeName} />
+            <SayInput />
+            <NameInput />
         </div>
     );
 });
+
+function SayInput() {
+    const say = demoStore.useSelector((state) => state.say);
+    console.log('say', say);
+    const { setState } = demoStore.useContext();
+    const changeName = (e) => setState((state) => ({ ...state, say: e.target.value }));
+    return <input value={say} onChange={changeName} />;
+}
+
+function NameInput() {
+    const name = demoStore.useSelector((state) => state.name);
+    console.log('name', name);
+    const { setState } = demoStore.useContext();
+    const changeName = (e) => setState((state) => ({ ...state, name: e.target.value }));
+    return <input value={name} onChange={changeName} />;
+}
 
 const demo2Store = createStore({
     state: { say: 'hello', name: 'rc-state' },
