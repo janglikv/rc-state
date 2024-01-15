@@ -117,10 +117,12 @@ export function createStore<
     };
     const useStoreContext = (): UseStoreContext => {
         const context = useContext(StoreContext);
-        return {
-            setState: context.setState,
-            getState: context.state,
-        };
+        return useMemo(() => {
+            return {
+                setState: (...args) => context.setState(...args),
+                getState: () => context.state,
+            };
+        }, []);
     };
 
     return {
