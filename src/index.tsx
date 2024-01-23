@@ -16,7 +16,7 @@ export function createStore<
 >({ state, selector, actions }: { state?: State; selector?: Selector; actions?: Actions }) {
     actions = actions || ({} as any);
     selector = selector || ({} as any);
-    const StoreContext = createContext<any>({});
+    const StoreContext = createContext<any>({ state, uuid: 0, callbacks: {}, actions });
 
     function StateKeeper({ initState }: any) {
         const context = useContext(StoreContext);
