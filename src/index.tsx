@@ -55,11 +55,13 @@ export function createStore<
         return null;
     }
 
-    const Provider = ({ children, initState }: { children: any; initState?: State }) => {
+    const Provider = ({ children, initState }: { children: any; initState?: State | ((state?: State) => State) }) => {
         const value = useMemo(() => ({ callbacks: {}, uuid: 0, state: {}, actions: {} }), []);
+        initState = initState instanceof Function ? initState(state) : initState;
+        initState = initState ?? state;
         return (
             <StoreContext.Provider value={value}>
-                <StateKeeper initState={initState ?? state} />
+                <StateKeeper initState={initState} />
                 {children}
             </StoreContext.Provider>
         );
@@ -131,7 +133,7 @@ export function createStore<
         useSelector,
         useActions,
         useContext: useStoreContext,
-        withProvider: <T,>(Component: T, initState?: State): T => {
+        withProvider: <T,>(Component: T, initState?: State | ((state?: State) => State)): T => {
             return ((props: any) => {
                 const EComponent = Component as unknown as ComponentType<any>;
                 return (
