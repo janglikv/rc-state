@@ -131,11 +131,11 @@ export function createStore<
         useSelector,
         useActions,
         useContext: useStoreContext,
-        withProvider: <T,>(Component: T): T => {
+        withProvider: <T,>(Component: T, initState?: State): T => {
             return ((props: any) => {
                 const EComponent = Component as unknown as ComponentType<any>;
                 return (
-                    <Provider>
+                    <Provider initState={initState}>
                         <EComponent {...props} />
                     </Provider>
                 );
@@ -146,7 +146,7 @@ export function createStore<
             children,
         }: {
             selectors?: Array<(state: State) => any | UseSelectors>;
-            children?: ({}: { values: any[]; actions: ActionFunctions; context: UseStoreContext }) => any;
+            children?: ({ }: { values: any[]; actions: ActionFunctions; context: UseStoreContext }) => any;
         }) => {
             const values = selectors.map((selector) => {
                 if (useSelectorsList.includes(selector)) {
